@@ -13,6 +13,7 @@ function Navbar({ user }) {
       <div className="flex gap-6 items-center">
         <h1 className="text-lg font-bold">E-Commerce App</h1>
         <Link to="/products">Products</Link>
+        <Link to="/orders" className="hover:underline">My Orders</Link>
       </div>
       <div className="flex gap-4 items-center">
         <span>{user}</span>

@@ -41,6 +41,19 @@ function Products() {
         getProducts();
     }, []);
 
+    const placeOrder = async (productId) => {
+        try {
+            await api.post("/orders", {
+                productId: productId,
+                quantity: 1,
+            });
+
+            alert("Order placed!");
+        } catch (err) {
+            alert("Failed to order");
+        }
+    };
+
     return (
         <div className="p-6">
 
@@ -79,11 +92,20 @@ function Products() {
                         <p>{p.description}</p>
                     </div>
 
-                    <button
+                    {role==="ADMIN" &&(
+                        <button
                         className="bg-red-500 text-white px-3"
                         onClick={() => deleteProduct(p.id)}
                     >
                         Delete
+                    </button>
+                    )}
+
+                    <button
+                        className="bg-green-500 text-white px-3 py-1 rounded mt-2"
+                        onClick={() => placeOrder(p.id)}
+                    >
+                        Buy Now
                     </button>
                 </div>
             ))}
