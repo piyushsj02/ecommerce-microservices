@@ -1,5 +1,6 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.OrderResponse;
 import com.ecommerce.backend.entity.Order;
 import com.ecommerce.backend.service.OrderService;
 
@@ -28,7 +29,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<Order> getMyOrders() {
+    public List<OrderResponse> getMyOrders() {
 
         String email = SecurityContextHolder
                 .getContext()

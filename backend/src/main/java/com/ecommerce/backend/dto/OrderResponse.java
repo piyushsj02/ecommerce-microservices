@@ -1,3 +1,6 @@
+package com.ecommerce.backend.dto;
+
+
 public class OrderResponse {
 
     private Long id;
@@ -57,6 +60,6 @@ public class OrderResponse {
         this.price = price;
     }
 
-    // getters
+   
     
 }
