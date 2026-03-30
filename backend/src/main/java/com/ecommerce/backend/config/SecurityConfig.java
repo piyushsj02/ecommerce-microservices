@@ -34,7 +34,7 @@ public class SecurityConfig {
                         // 🔥 Restrict POST & DELETE to ADMIN
                         .requestMatchers(HttpMethod.POST, "/products").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("ADMIN")
-
+                        .requestMatchers("/orders/**").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
