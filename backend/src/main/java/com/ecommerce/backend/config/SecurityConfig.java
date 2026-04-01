@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/products").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("ADMIN")
                         .requestMatchers("/orders/**").authenticated()
+                        .requestMatchers("/cart/**").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

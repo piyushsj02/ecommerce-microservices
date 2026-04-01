@@ -53,6 +53,15 @@ function Products() {
             alert("Failed to order");
         }
     };
+    const addToCart = async (productId) => {
+        try {
+            await api.post(`/cart/${productId}`);
+            alert("Added to cart");
+        } catch (err) {
+            alert("Error");
+        }
+    };
+
 
     return (
         <div className="p-6">
@@ -92,14 +101,20 @@ function Products() {
                         <p>{p.description}</p>
                     </div>
 
-                    {role==="ADMIN" &&(
+                    {role === "ADMIN" && (
                         <button
-                        className="bg-red-500 text-white px-3"
-                        onClick={() => deleteProduct(p.id)}
-                    >
-                        Delete
-                    </button>
+                            className="bg-red-500 text-white px-3"
+                            onClick={() => deleteProduct(p.id)}
+                        >
+                            Delete
+                        </button>
                     )}
+                    <button
+                        className="bg-yellow-500 text-white px-3 py-1 rounded mt-2"
+                        onClick={() => addToCart(p.id)}
+                    >
+                        Add to Cart
+                    </button>
 
                     <button
                         className="bg-green-500 text-white px-3 py-1 rounded mt-2"
