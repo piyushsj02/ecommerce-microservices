@@ -1,8 +1,10 @@
 package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.OrderResponse;
+import com.ecommerce.backend.entity.Cart;
 import com.ecommerce.backend.entity.Order;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.repository.CartRepository;
 import com.ecommerce.backend.repository.OrderRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 
@@ -19,13 +21,28 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
     private ProductRepository productRepository;
 
-    public Order placeOrder(Order order, String userEmail) {
-        order.setUserEmail(userEmail);
+   public void placeOrderFromCart(String email) {
+
+    List<Cart> cartItems = cartRepository.findByUserEmail(email);
+
+    for (Cart item : cartItems) {
+        Order order = new Order();
+        order.setProductId(item.getProductId());
+        order.setQuantity(item.getQuantity());
+        order.setUserEmail(email);
         order.setOrderDate(LocalDateTime.now());
-        return orderRepository.save(order);
+
+        orderRepository.save(order);
     }
+
+    // ✅ clear cart after order
+    cartRepository.deleteAll(cartItems);
+}
 
     public List<OrderResponse> getMyOrders(String email) {
 
