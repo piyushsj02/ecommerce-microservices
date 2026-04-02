@@ -17,16 +17,18 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
+    @PostMapping("/place")
+public String placeOrderFromCart() {
 
-        String email = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
+    String email = SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getName();
 
-        return orderService.placeOrder(order, email);
-    }
+    orderService.placeOrderFromCart(email);
+
+    return "Order placed successfully";
+}
 
     @GetMapping
     public List<OrderResponse> getMyOrders() {
